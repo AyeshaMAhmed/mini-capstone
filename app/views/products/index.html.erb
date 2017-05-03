@@ -1,0 +1,9 @@
+<h1> Product Page </h1>
+
+<%@product.each do |x|%>
+
+  <p><%= x.name %></p>
+  <p><%= x.price %></p>
+  <img src="<%= x.image %>" alt="" style="width: 200px;height: 200px;">
+  <p><%= x.description %></p>
+  <%end%>
