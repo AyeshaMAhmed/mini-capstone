@@ -1,9 +1,28 @@
 <h1> Product Page </h1>
 
-<%@product.each do |x|%>
+<% @products.each_slice(3) do |three_products|%>
 
-  <p><%= x.name %></p>
-  <p><%= x.price %></p>
-  <img src="<%= x.image %>" alt="" style="width: 200px;height: 200px;">
-  <p><%= x.description %></p>
-  <%end%>
+  <div class="row">
+
+    <% three_products.each do |product| %>
+
+      <div class="col-md-4">
+        <div class="well">
+          
+          <h2><a href="/products/<%= product.id %>"><%= product.name %></a></h2>
+          <h4><%= product.description %></h4>
+          
+          <h3>Price: <%= product.price %></h3>
+          
+          <button type="button" class="btn btn-primary">Buy</button>
+        
+  
+          <img src="<%= product.image %>" alt="" style="width: 300px;height: 300px;">
+        </div>
+      </div>
+  
+    <% end %>
+
+  </div>
+
+<% end %>
