@@ -1,21 +1,33 @@
-<h1>Product details</h1>
+  <section>
+    <div class="row">    
+      <div class="col-sm-8 col-sm-offset-2">
+      <div class = "well" >  
 
-    <h2><%= @product.name %></h2> 
+      <h1>Product details</h1>
+
+      <h2><%= @product.name %></h2> 
+       
+      <h4> Supplied by: <%= @product.supplier.supplier_name %></h4>
+
+      <h3><%= @product.description %></h3>
       
-
-      <h3><%= @product.description%></h3>
       <p><%= @product.sale_message %></p>
       
-      <h3>Price: <%= @product.price%></h3>
+      <h3>Price: <%= @product.price %></h3>
       
-      <p>Tax: <%= @product.tax%></p>
+      <p>Tax: <%= @product.tax %></p>
     
       <h3>Total: <%= @product.total%></h3>
-    
-      <img src="<%= @product.image %>" alt="" style="width: 400px;height: 400px;">
 
-  <%= form_tag "/products/#{@product.id}", method: :delete do %> 
+      <% @product.images.each do |image| %>
+           <img src="<%= image.url %>" alt="<%= @product.name %>" class="img-responsive">
+            <% end %> 
+    
+
+      <%= form_tag "/products/#{@product.id}", method: :delete do %> 
   
-  <input type="submit" value="DELETE PRODUCT">
+      <input type="submit" value="DELETE PRODUCT">
+  
+    </div>
 
 <%end%>

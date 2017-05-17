@@ -1,47 +1,75 @@
 class ProductsController < ApplicationController
   
   def index
-   @products = Product.all #array of hashes
-   render "index.html.erb"
-  end
+   @products = Product.all  #array of hashes
+   sort_attribute = params[:sort] 
+   sort_order = params[:order]
+   discount = params[:discount]
+   
+   if sort_attribute && sort_order
+      @products = Product.all.order(sort_attribute => sort_order)
+    end
 
-  def show
-  product_id = params[:id]
-  @product = Product.find(product_id) #single hash. You can also use .find(recipe_id)
-  render "show.html.erb"
+    if discount
+      @products = Product.where("price < ?", 10)
+    end
+
+    render "index.html.erb"
   end
   
-  def new
-  render "new.html.erb"
-  end
+    def new
+    render "new.html.erb"
+    end
+
 
   def create
-    new_product = Product.create(name: params[:name], price: params[:price], description: params[:description], image: params[:image])
+      Product.create(
+        name: params[:name], 
+        price: params[:price], 
+        description: params[:description])
 
-    flash[:success] = "Product successfully created!" #flash[:success] is ruby
-    redirect_to "/products/#{new_product.id}"
+      # image = Image.create(
+      # url: params[:url], 
+      # product_id: params[:id])
+      
+      flash[:success] = "Product successfully created!" #flash[:success] is ruby
+      redirect_to "/products/#{@product.id}"
   end
 
 
+    def show
+      @product = Product.find_by(id: params[:id]) #single hash. You can also use .find(recipe_id)
+
+      if params[:id] == "random"
+        @product = Product.all.sample
+      end
+      render "show.html.erb"
+    end
+
   def edit
-    @product = Product.find(params[:id]) #single hash
+    @product = Product.find_by(id: params[:id]) #single hash
     render "edit.html.erb"
   end
 
 
   def update
-    product = Product.find(params[:id])
+    @product = Product.find_by(id: params[:id])
 
-    product.update(name: params[:name], price: params[:price], description: params[:description], image: params[:image])
-  flash[:info] = "Product successfully updated!"
-  redirect_to "/products/#{product.id}"
+    product.update(
+      name: params[:name], 
+      price: params[:price], 
+      description: params[:description], 
+      image: params[:image]
+      )
+    flash[:success] = "Product updated!"
+    redirect_to "/products/#{@product.id}"
   end
 
 
   def destroy
-    product = Product.find(params[:id])
-    recipe.destroy
-    flash[:danger] = "Product successfully deleted!"
+    @product = Product.find_by(id: params[:id])
+    @product.destroy
+    flash[:warning] = "Product Deleted!"
     redirect_to "/products"
   end
 
