@@ -36,7 +36,6 @@ class ProductsController < ApplicationController
       redirect_to "/products/#{@product.id}"
   end
 
-
     def show
       @product = Product.find_by(id: params[:id]) #single hash. You can also use .find(recipe_id)
 
@@ -45,6 +44,8 @@ class ProductsController < ApplicationController
       end
       render "show.html.erb"
     end
+
+
 
   def edit
     @product = Product.find_by(id: params[:id]) #single hash
@@ -72,6 +73,7 @@ class ProductsController < ApplicationController
     flash[:warning] = "Product Deleted!"
     redirect_to "/products"
   end
+
 
 end
 

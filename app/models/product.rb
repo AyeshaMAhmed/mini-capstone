@@ -2,6 +2,7 @@ class Product < ApplicationRecord
 
   belongs_to :supplier
   has_many :images
+  has_many :orders
 
 
   def sale_message
@@ -18,8 +19,9 @@ class Product < ApplicationRecord
 
   def total
     price.to_i + tax
-
   end
+
+
 end
 
 

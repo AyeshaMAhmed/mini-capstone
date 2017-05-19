@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  get "/" => "products#index"
+  get "/" => "sessions#new" #1
 
   get "/products" => "products#index"
 
@@ -22,9 +22,15 @@ Rails.application.routes.draw do
   get "/signup" => "users#new"
   post "/users" => "users#create"
 
-  get "/login" => "sessions#new"
-  post "/login" => "sessions#create"
+  get "/login" => "sessions#new"  #2 takes to sessions controller
+  
+  post "/login" => "sessions#create" #3 goes to sessions controller
+  
   get "/logout" => "sessions#destroy"
+
+ post '/orders' => 'orders#create'
+
+ get '/orders/:id' => 'orders#show'
  
 end
 

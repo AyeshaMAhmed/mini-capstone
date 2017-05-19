@@ -1,33 +1,42 @@
   <section>
     <div class="row">    
       <div class="col-sm-8 col-sm-offset-2">
-      <div class = "well" >  
+        <div class = "well" >  
 
-      <h1>Product details</h1>
+          <h1>Product details</h1>
 
-      <h2><%= @product.name %></h2> 
-       
-      <h4> Supplied by: <%= @product.supplier.supplier_name %></h4>
+          <h2><%= @product.name %></h2> 
+         
+          <h4> Supplied by: <%= @product.supplier.supplier_name %></h4>
 
-      <h3><%= @product.description %></h3>
+          <h3><%= @product.description %></h3>
+        
+          <p><%= @product.sale_message %></p>
+        
+          <h3>Price: <%= @product.price %></h3>
+        
+          <p>Tax: <%= @product.tax %></p>
       
-      <p><%= @product.sale_message %></p>
-      
-      <h3>Price: <%= @product.price %></h3>
-      
-      <p>Tax: <%= @product.tax %></p>
-    
-      <h3>Total: <%= @product.total%></h3>
+          <h3>Total: <%= @product.total%></h3>
 
-      <% @product.images.each do |image| %>
+          <% @product.images.each do |image| %>
            <img src="<%= image.url %>" alt="<%= @product.name %>" class="img-responsive">
-            <% end %> 
-    
+          <% end %> 
+      
+      <%= form_tag "/orders", method: :post do %>
+      <div>
+          Quantity <input type="text" name="quantity">
+        </div>
+       <input type="submit" value="Buy now">
+
+      <% end %>
 
       <%= form_tag "/products/#{@product.id}", method: :delete do %> 
-  
-      <input type="submit" value="DELETE PRODUCT">
-  
-    </div>
+        <button type="button" class="btn btn-primary">Delete</button>
+      <% end %>
 
-<%end%>
+    </div>
+  </div>
+</div>
+
+ 
