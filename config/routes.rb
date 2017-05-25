@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   post "/products" => "products#create" #takes place of new_product_results
 
   get "/products/:id/edit" => "products#edit"
-
   patch "/products/:id" => "products#update"
 
   delete "/products/:id" => "products#destroy"
@@ -23,14 +22,17 @@ Rails.application.routes.draw do
   post "/users" => "users#create"
 
   get "/login" => "sessions#new"  #2 takes to sessions controller
-  
   post "/login" => "sessions#create" #3 goes to sessions controller
-  
   get "/logout" => "sessions#destroy"
 
- post '/orders' => 'orders#create'
+  post '/orders' => 'orders#create'
+  get '/orders/:id' => 'orders#show'
+  patch '/orders/:id' => 'orders#update'
 
- get '/orders/:id' => 'orders#show'
+  get '/carted_products' => 'carted_products#index'
+  post '/carted_products' => 'carted_products#create'
+  delete '/carted_products/:id'=> 'carted_products#destroy'
+
  
 end
 

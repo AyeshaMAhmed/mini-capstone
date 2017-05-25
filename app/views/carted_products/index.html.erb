@@ -1,0 +1,17 @@
+<h1> Cart: </h1>
+
+<% @carted_products.each do |carted_product|%>
+ <div>
+  <p>Product Name: <%= carted_product.product.name %> </p>
+  <p>Quantity: <%= carted_product.quantity %> </p>
+  </div>
+<%end%>
+
+<div>
+    <%= form_tag "/orders/#{@order.id}", method: :patch do %>
+       
+    <input type="submit" value="Buy Now">
+  <% end %>
+</div>
+
+

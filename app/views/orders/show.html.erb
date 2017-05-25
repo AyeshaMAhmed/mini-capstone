@@ -1,13 +1,16 @@
 <h1>Order confirmation </h1>
 
-<h3>Product: <%= @order.product.name%></h3>  
+
+<h3>Product: <%= @product_id %></h3> 
 <h2>Order ID <%= @order.id %></h2> 
-<h3>Order quantity <%= @order.quantity %></h3>
 <p>Order Tax: <%= @order.tax %></p>
 <h3>Order Total: <%= @order.total%></h3>  
 
-<% @order.product.images.first %>
-  <img src="<%= @order.product.iamges.first.url %>" alt="">
+<% @order.products.images.first %>
+  <img src="<%= @order.product.images.first.url %>" alt="">
+
+<% @order.carted_product.each do |carted_product| %>
+  <div>
+    <p>Product: <%= carted_product.product.name %></p>
+  </div>
 <% end %>
-
-

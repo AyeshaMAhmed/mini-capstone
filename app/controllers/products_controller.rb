@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   
+
   def index
    @products = Product.all  #array of hashes
    sort_attribute = params[:sort] 
@@ -18,14 +19,17 @@ class ProductsController < ApplicationController
   end
   
     def new
-    render "new.html.erb"
+      unless current_user && current_user.admin
+        redirect_to '/products'
+      end
     end
 
-
   def create
+    if current_user && current_user.admin
+
       Product.create(
         name: params[:name], 
-        price: params[:price], 
+        price: params[:price],  
         description: params[:description])
 
       # image = Image.create(
@@ -34,7 +38,11 @@ class ProductsController < ApplicationController
       
       flash[:success] = "Product successfully created!" #flash[:success] is ruby
       redirect_to "/products/#{@product.id}"
+    else 
+      redirect_to 'products'
+    end
   end
+
 
     def show
       @product = Product.find_by(id: params[:id]) #single hash. You can also use .find(recipe_id)
@@ -48,15 +56,19 @@ class ProductsController < ApplicationController
 
 
   def edit
+    if current_user && current_user.admin
     @product = Product.find_by(id: params[:id]) #single hash
     render "edit.html.erb"
+    else
+    redirect_to '/products'
+    end
   end
 
 
   def update
     @product = Product.find_by(id: params[:id])
 
-    product.update(
+    @product.update(
       name: params[:name], 
       price: params[:price], 
       description: params[:description], 

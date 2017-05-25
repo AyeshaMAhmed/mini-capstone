@@ -1,32 +1,32 @@
 <h1> Product Page </h1>
+    
+<% @products.each_slice(3) do |three_product| %>
+        
+        <div class= "row" >
 
-  <div class="row">
-
-    <% @products.each do |product| %>
-
-      <div class="col-md-4">
-        <div class="well">
+        <% three_product.each do |product| %>
+    
+      
+            <div class="col-md-4">
+        
+                <div class="well">
           
-          <h2><a href="/products/<%= product.id %>"><%= product.name %></a></h2>
+                <h2><a href="/products/<%= product.id %>"><%= product.name %></a></h2>
           
-          <h4><%= product.description %></h4>
+                <h4><%= product.description %></h4>
           
-          <h3>Price: <%= product.price %></h3>
+                <h3>Price: <%= product.price %></h3>
 
-           <a href="/products/<%= product.id %>" title="View Product">
-            <img src="###" alt="###" class="img-responsive product_single_image">
-
-
-           </a>
-              
-            <p>Description: <%= product.description %></p>
+                <a href="/products/<%= product.id %>" title="View Product" class= "thumbnail">
+            
+                <img src="<%= product.images.first.url %>" alt="###" class="img-responsive">
+                </a>
           
-            <button type="button" class="btn btn-primary">Buy</button>
-  
-<!--           <img src="###" alt="" style="width: 300px;height: 300px;">
- -->        </div>
-      </div>
-  
+                <button type="button" class="btn">Buy Now</button><a href= "/products/<%= product.id %>">
+                
+            </div>
+        </div>
     <% end %>
-
-  </div>
+   
+   </div>
+<% end %> 

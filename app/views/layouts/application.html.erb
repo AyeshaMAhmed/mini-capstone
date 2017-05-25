@@ -51,12 +51,15 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort By <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="/?sort=name">Discount Items</a></li>
-              <li><a href="/?sort=&&order-asc">Sort by Price Low > High</a></li>
-              <li><a href="/?sort=&&order-desc">Sort by Price High > Low </a></li>
-               <li><a href="/?sort=&&order-desc">Random </a></li>
+              <li><a href="/products/?sort=name">Discount Items</a></li>
+              <li><a href="/products/?sort=price&&order-asc">Sort by Price Low > High</a></li>
+              <li><a href="/products/?sort=price&&order-desc">Sort by Price High > Low </a></li>
+               <li><a href="/products/random">Random Product</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="#">Random Product</a></li>
+              
+              <% if current_user && current_user.admin %>
+              <li><a href="/products/new">Add New Product</a></li>
+              <% end %>
             </ul>
           </li>
         </ul>
