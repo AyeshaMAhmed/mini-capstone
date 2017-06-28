@@ -1,18 +1,25 @@
 class ProductsController < ApplicationController
   
+  before_action :authenticate_admin!, except: [:index, :show, :search]
 
   def index
-   @products = Product.all  #array of hashes
-   sort_attribute = params[:sort] 
-   sort_order = params[:order]
-   discount = params[:discount]
+    if session[:count] == nil
+      session[:count] = 0
+    end
+    session[:count] += 1
+    @visits = session[:count]
+
+    @products = Product.all  #array of hashes
+    sort_attribute = params[:sort] 
+    sort_order = params[:order]
+    discount = params[:discount]
    
    if sort_attribute && sort_order
       @products = Product.all.order(sort_attribute => sort_order)
     end
 
     if discount
-      @products = Product.where("price < ?", 10)
+      @products = Product.where("price < ?", 5)
     end
 
     render "index.html.erb"
@@ -23,6 +30,7 @@ class ProductsController < ApplicationController
         redirect_to '/products'
       end
     end
+    
 
   def create
     if current_user && current_user.admin
@@ -57,10 +65,10 @@ class ProductsController < ApplicationController
 
   def edit
     if current_user && current_user.admin
-    @product = Product.find_by(id: params[:id]) #single hash
-    render "edit.html.erb"
+      @product = Product.find_by(id: params[:id]) #single hash
+      render "edit.html.erb"
     else
-    redirect_to '/products'
+      redirect_to '/products'
     end
   end
 
